@@ -26,7 +26,7 @@ Button up:
 
 Wheel turn:
 
-	powermate.on('buttonUp', callback(wheelDelta));
+	powermate.on('wheelTurn', callback(wheelDelta));
 
 __Brightness__
 
