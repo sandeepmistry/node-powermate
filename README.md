@@ -12,7 +12,7 @@ Usage
 -----
 
     var PowerMate = require('node-powermate');
-    var powermate = new PowerMate();    
+    var powermate = new PowerMate();
 
 __Events__
 
@@ -21,17 +21,17 @@ Button down:
 	powermate.on('buttonDown', callback);
 
 Button up:
-	
+
 	powermate.on('buttonUp', callback);
 
 Wheel turn:
-	
+
 	powermate.on('buttonUp', callback(wheelDelta));
-    
+
 __Brightness__
 
 Brightness range is: 0 - 255
-    
+
 Set:
 
     powermate.setBrightness(brightness, [callback]);
@@ -39,9 +39,9 @@ Set:
 Get:
 
 	powermate.brightness(callback(brightness));
-    
+
 __Pulse Awake__
-    
+
 Set:
 
     powermate.setPulseAwake(pulseAwake, [callback]);
@@ -51,7 +51,7 @@ Get:
 	powermate.pulseAwake(callback(pulseAwake));
 
 __Pulse Asleep__
-    
+
 Set:
 
     powermate.setPulseAsleep(pulseAsleep, [callback]);
