@@ -13,6 +13,7 @@ Usage
 
     var PowerMate = require('node-powermate');
     var powermate = new PowerMate();
+    var powermater = new PowerMate(index); // optional index of PowerMate for multiple
 
 __Events__
 

@@ -10,10 +10,15 @@ describe('PowerMate', function() {
   var FEATURE_REPORT_ID = 0;
   var FEATURE_REPORT_LENGTH = 9;
 
-  var MOCK_HID_DEVICE_1_PATH = 'mock-path';
+  var MOCK_HID_DEVICE_1_PATH = 'mock-path-1';
+  var MOCK_HID_DEVICE_2_PATH = 'mock-path-2';
 
   var MOCK_HID_DEVICE_1 = {
     path: MOCK_HID_DEVICE_1_PATH
+  };
+
+  var MOCK_HID_DEVICE_2 = {
+    path: MOCK_HID_DEVICE_2_PATH
   };
 
   var PowerMate;
@@ -22,7 +27,21 @@ describe('PowerMate', function() {
   var recvFeatureReport;
   var readCallback;
 
-  var mockHIDdevice = {
+  var mockHIDdevice1 = {
+    sendFeatureReport: function(featureReport) {
+      sentFeatureReport = featureReport;
+    },
+
+    getFeatureReport: function(id, length) {
+      return ((id === FEATURE_REPORT_ID ) && (length === FEATURE_REPORT_LENGTH)) ? recvFeatureReport : null;
+    },
+
+    read: function(callback) {
+      readCallback = callback;
+    }
+  };
+
+  var mockHIDdevice2 = {
     sendFeatureReport: function(featureReport) {
       sentFeatureReport = featureReport;
     },
@@ -42,7 +61,15 @@ describe('PowerMate', function() {
     },
 
     HID: function(path) {
-      return (path === MOCK_HID_DEVICE_1_PATH) ? mockHIDdevice : null;
+      var hidDevice = null;
+
+      if (path === MOCK_HID_DEVICE_1_PATH) {
+        hidDevice = mockHIDdevice1;
+      } else if (path === MOCK_HID_DEVICE_2_PATH) {
+        hidDevice = mockHIDdevice2;
+      }
+
+      return hidDevice;
     }
   };
 
@@ -81,11 +108,26 @@ describe('PowerMate', function() {
       new PowerMate();
     });
 
-    it('should open correct HID device path', function() {
+    it('should open first HID device path when no index specified', function() {
       mockHIDdevices = [MOCK_HID_DEVICE_1];
 
       var powermate = new PowerMate();
-      powermate._hidDevice.should.equal(mockHIDdevice);
+      powermate._hidDevice.should.equal(mockHIDdevice1);
+    });
+
+    it('should throw an error when there are no PowerMate HID devices at index', function() {
+      mockHIDdevices = [MOCK_HID_DEVICE_1];
+
+      (function(){
+        new PowerMate(1);
+      }).should.throwError('No PowerMate found at index 1');
+    });
+
+    it('should open index HID device path when index specified', function() {
+      mockHIDdevices = [MOCK_HID_DEVICE_1, MOCK_HID_DEVICE_2];
+
+      var powermate = new PowerMate(1);
+      powermate._hidDevice.should.equal(mockHIDdevice2);
     });
 
     it('should call read with callback', function() {
