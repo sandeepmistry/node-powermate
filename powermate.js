@@ -14,14 +14,22 @@ var SET_PULSE_ASLEEP = 0x02;
 var SET_PULSE_AWAKE = 0x03;
 var SET_PULSE_MODE = 0x04;
 
-function PowerMate() {
+function PowerMate(index) {
   var powerMateHIDdevices = HID.devices(VENDOR_ID, PRODUCT_ID);
 
   if (powerMateHIDdevices.length === 0) {
     throw new Error('No PowerMate\'s could be found');
   }
+
+  if (index === undefined) {
+    index = 0;
+  }
+
+  if (powerMateHIDdevices[index] === undefined) {
+    throw new Error('No PowerMate found at index ' + index);
+  }
   
-  var powerMateHIDdevice = powerMateHIDdevices[0];
+  var powerMateHIDdevice = powerMateHIDdevices[index];
 
   this._hidDevice = new HID.HID(powerMateHIDdevice.path);
   this._buttonState = 0;
