@@ -174,7 +174,11 @@ PowerMate.prototype.pulseSpeed = function(callback) {
 
 PowerMate.prototype._parseRead = function(error, data) {
    if (error) {
-     throw error;
+     if (!this._closed) {
+       throw error;
+     } else {
+       return;
+     }
    } else if (data) {
     var buttonState = data[0];
     if (buttonState !== this._buttonState) {
@@ -195,5 +199,10 @@ PowerMate.prototype._parseRead = function(error, data) {
   
   this._hidDevice.read(this._parseRead.bind(this));
 };
+
+PowerMate.prototype.close = fucntion() {
+  this._closed = true;
+  this._hidDevice.close();
+}
 
 module.exports = PowerMate;
