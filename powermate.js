@@ -40,18 +40,26 @@ function PowerMate(index) {
 util.inherits(PowerMate, events.EventEmitter);
 
 PowerMate.prototype._sendCommand = function(/* command [, args ...]*/) {
-  var command = arguments[0];
-  var featureReport = [REPORT_ID, 0x41, 1, command, 0, 0, 0, 0, 0];
-  
-  for (var i = 1; i < arguments.length; i++) {
-    featureReport[i + 4] = arguments[i];
-  }
+  if (!this._closed) {
+    var command = arguments[0];
+    var featureReport = [REPORT_ID, 0x41, 1, command, 0, 0, 0, 0, 0];
+    
+    for (var i = 1; i < arguments.length; i++) {
+      featureReport[i + 4] = arguments[i];
+    }
 
-  this._hidDevice.sendFeatureReport(featureReport);
+    this._hidDevice.sendFeatureReport(featureReport);
+  } else {
+    throw new Error("PowerMate device has been closed");
+  }
 };
 
 PowerMate.prototype._readFeatureReport = function(callback) {
-  callback(this._hidDevice.getFeatureReport(REPORT_ID, REPORT_LENGTH));
+  if (!this._closed) {
+    callback(this._hidDevice.getFeatureReport(REPORT_ID, REPORT_LENGTH));
+  } else {
+    throw new Error("PowerMate device has been closed");
+  }
 };
 
 PowerMate.prototype.setBrightness = function(brightness, callback) {
@@ -200,9 +208,16 @@ PowerMate.prototype._parseRead = function(error, data) {
   this._hidDevice.read(this._parseRead.bind(this));
 };
 
-PowerMate.prototype.close = fucntion() {
+PowerMate.prototype.close = function() {
   this._closed = true;
   this._hidDevice.close();
-}
+};
+
+PowerMate.prototype.isClosed = function() {
+  if (this._closed) {
+    return true;
+  }
+  return false;
+};
 
 module.exports = PowerMate;
