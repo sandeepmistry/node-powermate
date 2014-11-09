@@ -81,6 +81,14 @@ Get:
 
     powermate.buttonState(callback(buttonState));
 
+__Close__
+
+    powermate.close([callback]);
+
+State:
+
+    powermate.isClosed(); // returns: true | false
+
 Permissions
 -----
 Depending on OS, you may get an error that looks something like
@@ -96,7 +104,7 @@ will assign the PowerMate device to the "input" group, which the pi user belongs
 License
 ========
 
-Copyright (C) 2012 Sandeep Mistry <sandeep.mistry@gmail.com>
+Copyright (C) 2014 Sandeep Mistry <sandeep.mistry@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
