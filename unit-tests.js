@@ -38,6 +38,10 @@ describe('PowerMate', function() {
 
     read: function(callback) {
       readCallback = callback;
+    },
+    
+    close: function() {
+
     }
   };
 
@@ -52,6 +56,10 @@ describe('PowerMate', function() {
 
     read: function(callback) {
       readCallback = callback;
+    },
+
+    close: function() {
+
     }
   };
 
@@ -170,6 +178,17 @@ describe('PowerMate', function() {
           done();
         });
       });
+
+      it('should throw an Error when trying to setBrightness on a closed powermate', function(done){
+        powermate.close();
+        try {
+          powermate.setBrightness(255, function() {
+
+          });
+        } catch (err) {
+          done();
+        }
+      });
     });
 
     describe('#PowerMate.setPulseAsleep', function() {
@@ -192,6 +211,17 @@ describe('PowerMate', function() {
         powermate.setPulseAsleep(true, function() {
           done();
         });
+      });
+
+      it('should throw an Error when trying to setPulseAsleep on a closed powermate', function(done){
+        powermate.close();
+        try {
+          powermate.setPulseAsleep(true, function() {
+
+          });
+        } catch (err) {
+          done();
+        }
       });
     });
 
