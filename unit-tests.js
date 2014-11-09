@@ -26,6 +26,7 @@ describe('PowerMate', function() {
   var sentFeatureReport;
   var recvFeatureReport;
   var readCallback;
+  var closed;
 
   var mockHIDdevice1 = {
     sendFeatureReport: function(featureReport) {
@@ -39,9 +40,9 @@ describe('PowerMate', function() {
     read: function(callback) {
       readCallback = callback;
     },
-    
-    close: function() {
 
+    close: function() {
+      closed = true;
     }
   };
 
@@ -519,6 +520,39 @@ describe('PowerMate', function() {
         });
 
         readCallback(null, [0, 0x81]);
+      });
+    });
+
+    describe('#PowerMate.close', function() {
+      beforeEach(setupPowerMate);
+      afterEach(teardownPowerMate);
+
+      it('should return false for isClosed when not closed', function(done) {
+        powermate.isClosed().should.eql(false);
+
+        done();
+      });
+
+      it('should call HID close', function(done) {
+        powermate.close();
+
+        closed.should.eql(true);
+
+        done();
+      });
+
+      it('should callback', function(done) {
+        powermate.close(function() {
+          done();
+        });
+      });
+
+      it('should return true for isClosed when closed', function(done) {
+        powermate.close(function() {
+          powermate.isClosed().should.eql(true);
+
+          done();
+        });
       });
     });
   });
