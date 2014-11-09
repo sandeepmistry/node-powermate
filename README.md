@@ -21,15 +21,15 @@ __Events__
 
 Button down:
 
-	powermate.on('buttonDown', callback);
+    powermate.on('buttonDown', callback);
 
 Button up:
 
-	powermate.on('buttonUp', callback);
+    powermate.on('buttonUp', callback);
 
 Wheel turn:
 
-	powermate.on('wheelTurn', callback(wheelDelta));
+    powermate.on('wheelTurn', callback(wheelDelta));
 
 __Brightness__
 
@@ -41,7 +41,7 @@ Set:
 
 Get:
 
-	powermate.brightness(callback(brightness));
+    powermate.brightness(callback(brightness));
 
 __Pulse Awake__
 
@@ -51,7 +51,7 @@ Set:
 
 Get:
 
-	powermate.pulseAwake(callback(pulseAwake));
+    powermate.pulseAwake(callback(pulseAwake));
 
 __Pulse Asleep__
 
@@ -61,7 +61,7 @@ Set:
 
 Get:
 
-	powermate.pulseAsleep(callback(pulseAsleep));
+    powermate.pulseAsleep(callback(pulseAsleep));
 
 __Pulse Speed__
 
@@ -73,20 +73,20 @@ Set:
 
 Get:
 
-	powermate.pulseSpeed(callback(pulseSpeed));
+    powermate.pulseSpeed(callback(pulseSpeed));
 
 __Button State__
 
 Get:
 
-	powermate.buttonState(callback(buttonState));
+    powermate.buttonState(callback(buttonState));
 
 Permissions
 -----
-Depending on OS, you may get an error that looks something like 
+Depending on OS, you may get an error that looks something like
 
     cannot open device with path 0001:0004:00
-    
+
 If this happens, it is likely because your user doesn't have permissions for the PowerMate device. In Linux (specifically Raspbian), creating the file /etc/udev/rules/95-powermate.rules and entering the following text:
 
     SUBSYSTEM=="usb", ATTRS{idVendor}=="077d", ATTRS{idProduct}=="0410", SYMLINK+="powermate", MODE="660", GROUP="input"
