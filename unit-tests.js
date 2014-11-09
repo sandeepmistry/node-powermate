@@ -60,7 +60,7 @@ describe('PowerMate', function() {
     },
 
     close: function() {
-
+      closed = true;
     }
   };
 
@@ -143,12 +143,15 @@ describe('PowerMate', function() {
       mockHIDdevices = [MOCK_HID_DEVICE_1];
 
       var powermate = new PowerMate();
-      readCallback.should.be.a('function');
+
+      (typeof readCallback).should.eql('function');
     });
 
     var powermate;
 
     var setupPowerMate = function() {
+      closed = false;
+
       mockHIDdevices = [MOCK_HID_DEVICE_1];
 
       powermate = new PowerMate();
@@ -470,7 +473,7 @@ describe('PowerMate', function() {
 
         oldReadCallback(null, null);
 
-        readCallback.should.be.a('function');
+        (typeof readCallback).should.eql('function');
       });
 
       it('should fire buttonDown event on button down read data', function(done) {
