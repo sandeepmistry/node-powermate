@@ -1,107 +1,139 @@
-node-powermate
-==============
-
+# node-powermate
 
 A Node.js library for the [Griffin PowerMate](http://store.griffintechnology.com/laptops/powermate)
 
-Install
--------
+## Install
 
-    npm install node-powermate
+```
+npm install node-powermate
+```
 
-Usage
------
+## Usage
 
-    var PowerMate = require('node-powermate');
-    var powermate = new PowerMate();
-    var powermater = new PowerMate(index); // optional index of PowerMate for multiple
+```javascript
+var PowerMate = require('node-powermate');
+var powermate = new PowerMate();
+var powermater = new PowerMate(index); // optional index of PowerMate for multiple
+```
 
-__Events__
+### Events
 
 Button down:
 
-    powermate.on('buttonDown', callback);
+```javascript
+powermate.on('buttonDown', callback);
+```
 
 Button up:
 
-    powermate.on('buttonUp', callback);
+```javascript
+powermate.on('buttonUp', callback);
+```
 
 Wheel turn:
 
-    powermate.on('wheelTurn', callback(wheelDelta));
+```javascript
+powermate.on('wheelTurn', callback(wheelDelta));
+```
 
-__Brightness__
+### Brightness
 
 Brightness range is: 0 - 255
 
 Set:
 
-    powermate.setBrightness(brightness, [callback]);
+```javascript
+powermate.setBrightness(brightness, [callback]);
+```
 
 Get:
 
-    powermate.brightness(callback(brightness));
+```javascript
+powermate.brightness(callback(brightness));
+```
 
-__Pulse Awake__
+### Pulse Awake
 
 Set:
 
-    powermate.setPulseAwake(pulseAwake, [callback]);
+```javascript
+powermate.setPulseAwake(pulseAwake, [callback]);
+```
 
 Get:
 
-    powermate.pulseAwake(callback(pulseAwake));
+```javascript
+powermate.pulseAwake(callback(pulseAwake));
+```
 
-__Pulse Asleep__
+### Pulse Asleep
 
 Set:
 
-    powermate.setPulseAsleep(pulseAsleep, [callback]);
+```javascript
+powermate.setPulseAsleep(pulseAsleep, [callback]);
+```
 
 Get:
 
-    powermate.pulseAsleep(callback(pulseAsleep));
+```javascript
+powermate.pulseAsleep(callback(pulseAsleep));
+```
 
-__Pulse Speed__
+### Pulse Speed
 
 Pulse speed range: 0 - 511
 
 Set:
 
-    powermate.setPulseSpeed(pulseSpeed, [callback]);
+```javascript
+powermate.setPulseSpeed(pulseSpeed, [callback]);
+```
 
 Get:
 
-    powermate.pulseSpeed(callback(pulseSpeed));
+```javascript
+powermate.pulseSpeed(callback(pulseSpeed));
+```
 
-__Button State__
+### Button State
 
 Get:
 
-    powermate.buttonState(callback(buttonState));
+```javascript
+powermate.buttonState(callback(buttonState));
+```
 
-__Close__
+### Close
 
-    powermate.close([callback]);
+```javascript
+powermate.close([callback]);
+```
 
 State:
 
-    powermate.isClosed(); // returns: true | false
+```javascript
+powermate.isClosed(); // returns: true | false
+```
 
 Permissions
 -----
 Depending on OS, you may get an error that looks something like
 
-    cannot open device with path 0001:0004:00
+```
+cannot open device with path 0001:0004:00
+```
 
 If this happens, it is likely because your user doesn't have permissions for the PowerMate device. In Linux (specifically Raspbian), creating the file /etc/udev/rules/95-powermate.rules and entering the following text:
 
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="077d", ATTRS{idProduct}=="0410", SYMLINK+="powermate", MODE="660", GROUP="input"
+```
+SUBSYSTEM=="usb", ATTRS{idVendor}=="077d", ATTRS{idProduct}=="0410", SYMLINK+="powermate", MODE="660", GROUP="input"
+```
 
 will assign the PowerMate device to the "input" group, which the pi user belongs to. For other OSs, change the GROUP entry to a group that your user belongs to.
 
-License
-========
+## License
+
 
 Copyright (C) 2014 Sandeep Mistry <sandeep.mistry@gmail.com>
 
