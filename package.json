@@ -1,7 +1,7 @@
 {
   "name": "node-powermate",
-  "description": "A node.js library for the Griffin PowerMate.",
-  "version": "0.0.3",
+  "description": "A Node.js library for the Griffin PowerMate.",
+  "version": "0.0.5",
   "author": {
     "name": "Sandeep Mistry",
     "email": "sandeep.mistry@gmail.com",
