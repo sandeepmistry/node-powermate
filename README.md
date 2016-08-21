@@ -36,6 +36,12 @@ Wheel turn:
 powermate.on('wheelTurn', callback(wheelDelta));
 ```
 
+Disconnected:
+
+```javascript
+powermate.on('disconnected', callback());
+```
+
 ### Brightness
 
 Brightness range is: 0 - 255
