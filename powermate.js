@@ -186,7 +186,7 @@ PowerMate.prototype._parseRead = function(error, data) {
     return;
   } else if (error) {
     if (error.message == "could not read from HID device") {
-      process.nextTick(function() {
+      process.nextTick(()=>{
         this.close();
       });
       this.emit('disconnected');
