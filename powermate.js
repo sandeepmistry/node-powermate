@@ -15,6 +15,13 @@ var SET_PULSE_AWAKE = 0x03;
 var SET_PULSE_MODE = 0x04;
 
 function PowerMate(index) {
+  if (typeof(index) == "object") {
+    if (index['hidDriver']) {
+      HID.setDriverType(index['hidDriver']);
+    }
+    index = index['index'];
+  }
+
   var powerMateHIDdevices = HID.devices(VENDOR_ID, PRODUCT_ID);
 
   if (powerMateHIDdevices.length === 0) {
